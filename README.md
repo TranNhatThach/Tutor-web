@@ -16,3 +16,46 @@ The React Compiler is not enabled on this template because of its impact on dev 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
 npm run dev de chay project
+
+# Kiểm tra trạng thái
+
+git status
+
+# Thêm tất cả file:
+
+git add .
+
+# Commit code
+
+git commit -m "message"
+
+# Push code lên GitHub
+
+git push
+
+# Lấy code mới từ GitHub
+
+git pull
+
+# Xem lịch sử commit
+
+git log
+
+# Branch (rất hay dùng khi làm nhóm)
+
+- Xem branch:
+  git branch
+- tạo branch:
+  git branch feature-login
+- Chuyển branch:
+  git checkout feature-login
+- Tạo và chuyển luôn:
+  git checkout -b feature-login
+
+# Lấy update mới nhưng không merge
+
+git fetch
+
+# Hoàn tác file về trạng thái cũ
+
+git checkout -- file_name
