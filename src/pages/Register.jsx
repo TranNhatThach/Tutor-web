@@ -6,6 +6,18 @@ export default function Register() {
       <input placeholder="Họ tên" style={inputStyle} />
       <input placeholder="Email" style={inputStyle} />
       <input type="password" placeholder="Mật khẩu" style={inputStyle} />
+      <input
+        type="password"
+        placeholder="Xác nhận mật khẩu"
+        style={inputStyle}
+      />
+      <input
+        type="text"
+        placeholder="Vai trò (Gia sư/Học viên)"
+        style={inputStyle}
+      />
+      <input type="text" placeholder="Số điện thoại" style={inputStyle} />
+      <input type="text" placeholder="Địa chỉ" style={inputStyle} />
 
       <button style={buttonStyle}>Tạo tài khoản</button>
     </div>
