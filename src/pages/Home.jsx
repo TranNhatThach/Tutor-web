@@ -1,14 +1,22 @@
-import { useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Swiper sẽ được khởi tạo tự động bởi component Swiper
   }, []);
+
+  const handleSearchClick = () => {
+    alert("Vui lòng đăng nhập để tiếp tục trải nghiệm!");
+    navigate("/login");
+  };
 
   return (
     <div>
@@ -24,12 +32,12 @@ export default function Home() {
             disableOnInteraction: false,
           }}
           pagination={{
-            el: '.swiper-pagination',
+            el: ".swiper-pagination",
             clickable: true,
           }}
           navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
           }}
           className="mySwiper"
         >
@@ -65,7 +73,7 @@ export default function Home() {
         <div className="search-container">
           <div className="search-box">
             <input type="text" placeholder="Bạn muốn tìm gia sư môn gì?" />
-            <button>Tìm kiếm</button>
+            <button onClick={handleSearchClick}>Tìm kiếm</button>
           </div>
         </div>
       </section>
@@ -76,16 +84,29 @@ export default function Home() {
           <div className="contact-grid">
             <div className="contact-info">
               <h3>Trung tâm hỗ trợ TutorConnect</h3>
-              <p>📍 <strong>Địa chỉ:</strong> 123 Đường Cầu Giấy, Hà Nội</p>
-              <p>📞 <strong>Hotline:</strong> 1900 1234 (8:00 - 22:00)</p>
-              <p>✉️ <strong>Email:</strong> support@tutorconnect.vn</p>
-              <p>🌐 <strong>Website:</strong> www.tutorconnect.vn</p>
+              <p>
+                📍 <strong>Địa chỉ:</strong> 123 Đường Cầu Giấy, Hà Nội
+              </p>
+              <p>
+                📞 <strong>Hotline:</strong> 1900 1234 (8:00 - 22:00)
+              </p>
+              <p>
+                ✉️ <strong>Email:</strong> support@tutorconnect.vn
+              </p>
+              <p>
+                🌐 <strong>Website:</strong> www.tutorconnect.vn
+              </p>
             </div>
             <form className="contact-form">
               <input type="text" placeholder="Họ và tên của bạn" required />
               <input type="email" placeholder="Địa chỉ Email" required />
-              <textarea placeholder="Nội dung bạn cần tư vấn..." required></textarea>
-              <button type="submit" className="btn-filled">Gửi yêu cầu hỗ trợ</button>
+              <textarea
+                placeholder="Nội dung bạn cần tư vấn..."
+                required
+              ></textarea>
+              <button type="submit" className="btn-filled">
+                Gửi yêu cầu hỗ trợ
+              </button>
             </form>
           </div>
         </div>
