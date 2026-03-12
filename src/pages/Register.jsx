@@ -1,28 +1,115 @@
+import { useState } from "react";
 export default function Register() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+    phone: "",
+    address: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    if (formData.password !== formData.confirmPassword) {
+      alert("Mật khẩu và xác nhận mật khẩu không khớp!");
+      return;
+    }
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert("Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.");
+        console.log("OK:", data);
+      } else {
+        alert("Đăng ký thất bại. Vui lòng thử lại.");
+        console.error("ERR:", data);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div style={containerStyle}>
       <div style={formContainerStyle}>
         <h2 style={titleStyle}>Đăng Ký</h2>
 
-        <input placeholder="Họ tên" style={inputStyle} />
-        <input placeholder="Email" style={inputStyle} />
-        <input type="password" placeholder="Mật khẩu" style={inputStyle} />
+        <input
+          placeholder="Họ tên"
+          style={inputStyle}
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+        />
+        <input
+          placeholder="Email"
+          style={inputStyle}
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <input
+          type="password"
+          placeholder="Mật khẩu"
+          style={inputStyle}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
         <input
           type="password"
           placeholder="Xác nhận mật khẩu"
           style={inputStyle}
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
         />
 
-        <select style={selectStyle} defaultValue="">
+        <select
+          style={selectStyle}
+          defaultValue=""
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+        >
           <option value="">Chọn vai trò</option>
           <option value="tutor">Gia sư</option>
           <option value="student">Học viên</option>
         </select>
 
-        <input type="text" placeholder="Số điện thoại" style={inputStyle} />
-        <input type="text" placeholder="Địa chỉ" style={inputStyle} />
+        <input
+          type="text"
+          placeholder="Số điện thoại"
+          style={inputStyle}
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="Địa chỉ"
+          style={inputStyle}
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+        />
 
-        <button style={buttonStyle}>Tạo tài khoản</button>
+        <button style={buttonStyle} onClick={handleSubmit}>
+          Tạo tài khoản
+        </button>
 
         <p style={linkStyle}>
           Đã có tài khoản?{" "}

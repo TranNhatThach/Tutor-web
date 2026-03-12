@@ -1,7 +1,28 @@
-import { useState } from "react";
+import { useState } from "react"; // import useState hook để quản lý state trong component
 
 export default function Login() {
+  // tạo component Login và export để sử dụng ở nơi khác
   const [rememberPassword, setRememberPassword] = useState(false);
+  // state lưu trạng thái checkbox "remember password"
+  // mặc định là false (không ghi nhớ mật khẩu)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // state lưu email,mật khẩu người dùng nhập vào
+  // mặc định là chuỗi rỗng
+  const submit = async () => {
+    // hàm submit dùng để gửi request đăng nhập lên backend
+    // async để sử dụng await khi gọi API
+    const res = await fetch("http://localhost:8080/api/auth/login", {
+      // gửi request POST tới API login của backend Spring Boot
+      method: "POST", // sử dụng phương thức POST để gửi dữ liệu đăng nhập
+      headers: { "Content-Type": "application/json" }, // khai báo dữ liệu gửi đi là JSON
+      body: JSON.stringify({ email, password }), // chuyển object javascript thành JSON
+      // gửi email và password lên backend
+    });
+    const data = await res.json(); // await nhận dữ liệu trả về, response từ backend thành JSON để sử dụng
+    if (res.ok) console.log("OK:", data);
+    else console.error("ERR:", data);
+  };
 
   return (
     <div style={containerStyle}>
