@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function Register() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    fullName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -31,10 +35,11 @@ export default function Register() {
       });
       const data = await res.json();
       if (res.ok) {
-        alert("Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.");
+        alert(data.message);
         console.log("OK:", data);
+        navigate("/login");
       } else {
-        alert("Đăng ký thất bại. Vui lòng thử lại.");
+        alert(data.message);
         console.error("ERR:", data);
       }
     } catch (error) {
@@ -43,20 +48,20 @@ export default function Register() {
   };
 
   return (
-    <div style={containerStyle}>
-      <div style={formContainerStyle}>
-        <h2 style={titleStyle}>Đăng Ký</h2>
+    <div style={styles.containerStyle}>
+      <div style={styles.formContainerStyle}>
+        <h2 style={styles.titleStyle}>Đăng Ký</h2>
 
         <input
           placeholder="Họ tên"
-          style={inputStyle}
-          name="fullName"
-          value={formData.fullName}
+          style={styles.inputStyle}
+          name="username"
+          value={formData.username}
           onChange={handleChange}
         />
         <input
           placeholder="Email"
-          style={inputStyle}
+          style={styles.inputStyle}
           name="email"
           value={formData.email}
           onChange={handleChange}
@@ -64,7 +69,7 @@ export default function Register() {
         <input
           type="password"
           placeholder="Mật khẩu"
-          style={inputStyle}
+          style={styles.inputStyle}
           name="password"
           value={formData.password}
           onChange={handleChange}
@@ -72,28 +77,29 @@ export default function Register() {
         <input
           type="password"
           placeholder="Xác nhận mật khẩu"
-          style={inputStyle}
+          style={styles.inputStyle}
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}
         />
 
         <select
-          style={selectStyle}
-          defaultValue=""
+          style={styles.selectStyle}
           name="role"
           value={formData.role}
           onChange={handleChange}
         >
-          <option value="">Chọn vai trò</option>
-          <option value="tutor">Gia sư</option>
-          <option value="student">Học viên</option>
+          <option value="" disabled>
+            Chọn vai trò
+          </option>
+          <option value="GIA_SU">Gia sư</option>
+          <option value="HOC_VIEN">Học viên</option>
         </select>
 
         <input
           type="text"
           placeholder="Số điện thoại"
-          style={inputStyle}
+          style={styles.inputStyle}
           name="phone"
           value={formData.phone}
           onChange={handleChange}
@@ -101,19 +107,19 @@ export default function Register() {
         <input
           type="text"
           placeholder="Địa chỉ"
-          style={inputStyle}
+          style={styles.inputStyle}
           name="address"
           value={formData.address}
           onChange={handleChange}
         />
 
-        <button style={buttonStyle} onClick={handleSubmit}>
+        <button style={styles.buttonStyle} onClick={handleSubmit}>
           Tạo tài khoản
         </button>
 
-        <p style={linkStyle}>
+        <p style={styles.linkStyle}>
           Đã có tài khoản?{" "}
-          <a href="/login" style={anchorStyle}>
+          <a href="/login" style={styles.anchorStyle}>
             Đăng nhập
           </a>
         </p>
@@ -122,77 +128,79 @@ export default function Register() {
   );
 }
 
-const containerStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  minHeight: "115vh",
-  backgroundColor: "#f5f5f5",
-};
+const styles = {
+  containerStyle: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "115vh",
+    backgroundColor: "#f5f5f5",
+  },
 
-const formContainerStyle = {
-  backgroundColor: "white",
-  padding: "35px",
-  borderRadius: "15px",
-  boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-  width: "100%",
-  maxWidth: "400px",
-};
+  formContainerStyle: {
+    backgroundColor: "white",
+    padding: "35px",
+    borderRadius: "15px",
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+    width: "100%",
+    maxWidth: "400px",
+  },
 
-const titleStyle = {
-  textAlign: "center",
-  color: "#333",
-  marginBottom: "25px",
-  fontSize: "24px",
-  fontWeight: "600",
-};
+  titleStyle: {
+    textAlign: "center",
+    color: "#333",
+    marginBottom: "25px",
+    fontSize: "24px",
+    fontWeight: "600",
+  },
 
-const inputStyle = {
-  display: "block",
-  width: "100%",
-  padding: "10px 12px",
-  margin: "10px 0",
-  border: "1px solid #ddd",
-  borderRadius: "4px",
-  fontSize: "14px",
-  boxSizing: "border-box",
-};
+  inputStyle: {
+    display: "block",
+    width: "100%",
+    padding: "10px 12px",
+    margin: "10px 0",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    fontSize: "14px",
+    boxSizing: "border-box",
+  },
 
-const selectStyle = {
-  display: "block",
-  width: "100%",
-  padding: "10px 12px",
-  margin: "10px 0",
-  border: "1px solid #ddd",
-  borderRadius: "4px",
-  fontSize: "14px",
-  boxSizing: "border-box",
-  backgroundColor: "white",
-};
+  selectStyle: {
+    display: "block",
+    width: "100%",
+    padding: "10px 12px",
+    margin: "10px 0",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    fontSize: "14px",
+    boxSizing: "border-box",
+    backgroundColor: "white",
+  },
 
-const buttonStyle = {
-  width: "100%",
-  padding: "11px",
-  marginTop: "15px",
-  backgroundColor: "#1976d2",
-  color: "white",
-  border: "none",
-  borderRadius: "4px",
-  fontSize: "16px",
-  fontWeight: "600",
-  cursor: "pointer",
-};
+  buttonStyle: {
+    width: "100%",
+    padding: "11px",
+    marginTop: "15px",
+    backgroundColor: "#1976d2",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    fontSize: "16px",
+    fontWeight: "600",
+    cursor: "pointer",
+  },
 
-const linkStyle = {
-  textAlign: "center",
-  marginTop: "15px",
-  fontSize: "14px",
-  color: "#666",
-};
+  linkStyle: {
+    textAlign: "center",
+    marginTop: "15px",
+    fontSize: "14px",
+    color: "#666",
+  },
 
-const anchorStyle = {
-  color: "#1976d2",
-  textDecoration: "none",
-  fontWeight: "600",
-  cursor: "pointer",
+  anchorStyle: {
+    color: "#1976d2",
+    textDecoration: "none",
+    fontWeight: "600",
+    cursor: "pointer",
+  },
 };
